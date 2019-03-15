@@ -6,52 +6,49 @@ namespace UniversityHospitals
 {
     public class Receptionist : Employee
     {
-        public bool IsOnPhone;
-        public Receptionist()
+        public bool IsOnPhone { get; set; }
+
+        public Receptionist(int EmployeeId, string fullName, bool PayStatus, bool IsOnPhone) : base(EmployeeId, fullName, PayStatus)
         {
-            EmployeeId = 003;
-            JobTitle = "Receptionist";
-            FullName = "Mila Marie";
             Salary = 45000;
             IsOnPhone = false;
         }
 
-        public override void PayEmployee()
+        public override string PayStatus()
         {
-            if (Paid)
-            {
-                Console.WriteLine("Selection invalid, Doctor Manville has alredy been paid.");
-            }
-            else
-            {
-                Paid = true;
-                Console.WriteLine("Doctor Manville has just been paid their salary of $90,000.00");
-            }
-        }
-
-        public void PhoneCall()
-        {
-            if (IsOnPhone)
-            {
-                IsOnPhone = false;
-                Console.WriteLine("Receptionist Marie is not currently on the phone");
-                
-            }
-            else
-            {
-                IsOnPhone = true;
-                Console.WriteLine("Receptionist Marie is currently on the phone.");
-            }
+            return base.PayStatus();
         }
 
         public override void EmployeeStatus()
         {
-            Console.WriteLine("EMPLOYEE ID: " + EmployeeId);
-            Console.WriteLine("JOB TITLE: " + JobTitle);
-            Console.WriteLine("NAME: " + FullName);
-            Console.WriteLine("SALARY: " + Salary);
-            Console.WriteLine("PAY STATUS: " + Paid);
-            Console.WriteLine("IS ON PHONE: " + IsOnPhone);
+            Console.WriteLine($"Receptionist {FullName}, is {PayStatus().ToString()}, and {PhoneStatus().ToString()}");
+        }
+
+        public virtual string PhoneStatus()
+        {
+            if (IsOnPhone)
+            {
+                return $"{FullName} is currently on the phone";
+            }
+            else
+            {
+                ;
+                IsOnPhone = true;
+                return $"{FullName} is not currently on the phone.";
+            }
+        }
+        public void MakePhoneCall()
+        {
+            if (IsOnPhone == true)
+            {
+                IsOnPhone = false;
+                Console.WriteLine("The Receptionist is now making phone calls");
+            }
+            else if (IsOnPhone == false)
+            {
+                IsOnPhone = true;
+                Console.WriteLine("The Receptionist is currently not making phone calls");  
+            }
         }
     }
 }

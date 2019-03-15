@@ -8,53 +8,48 @@ namespace UniversityHospitals
     public class Janitor : Employee
     {
         public bool IsSweeping;
-        public Janitor()
+
+        public Janitor(int EmployeeId, string fullname, bool isPaid, bool isSweeping) : base(EmployeeId, fullname, isPaid)
         {
-            EmployeeId = 004;
-            JobTitle = "Janitor";
-            FullName = "Maximus Michael";
-            Salary = 40000;
             IsSweeping = false;
+            Salary = 40000;
         }
 
-        public override void EmployeeStatus()
-        {
-            Console.WriteLine("EMPLOYEE ID: " + EmployeeId);
-            Console.WriteLine("JOB TITLE: " + JobTitle);
-            Console.WriteLine("NAME: " + FullName);
-            Console.WriteLine("SALARY: " + Salary);
-            Console.WriteLine("PAY STATUS: " + Paid);
-            Console.WriteLine("IS CLEANING: " + IsSweeping);
-        }
-
-        public override void PayEmployee()
-        {
-            if (Paid)
-            {
-                Console.WriteLine("Selection invalid, Doctor Manville has alredy been paid.");
-            }
-            else
-            {
-                Paid = true;
-                Console.WriteLine("Doctor Manville has just been paid their salary of $90,000.00");
-            }
-        }
-     
-
-          public void Sweep()
+        public string SweepStatus()
         {
             if (IsSweeping)
             {
+                return $"The Janitor is currently sweeping the Hospital";
+            }
+            else
+            {
+                return $"The Janitor is not currently sweeping the Hospital";
+            }
+        }
+
+        public void Sweep()
+        {
+            if (IsSweeping /*== false*/)
+            {
                 IsSweeping = false;
-                Console.WriteLine("Janitor Michael is currently not sweeping.");
-                
+                Console.WriteLine("The Janitor has now began sweeping the hospital");
             }
             else
             {
                 IsSweeping = true;
-                Console.WriteLine("Janitor Michael is currently sweeping.");
+                Console.WriteLine("The Janitor is not currently sweeping the hospital");
             }
-        }       
+        }
+
+        public override string PayStatus()
+        {
+            Console.WriteLine();
+            return base.PayStatus();
+        }
+
+        public override void EmployeeStatus()
+        {
+            Console.WriteLine($"Janitor {FullName}, is {PayStatus().ToString()}, and {SweepStatus().ToString()}");
+        }
     }
 }
-

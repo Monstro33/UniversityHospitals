@@ -6,28 +6,50 @@ namespace UniversityHospitals
 {
     public abstract class Employee
     {
-        public int EmployeeId { get; set; }
-        public string JobTitle { get; set; }
-        public string FullName { get; set; }
+        public int ID { get; set; }
+        public string FullName { get; private set; }
         public int Salary { get; set; }
-        public bool Paid { get; set; }
+        public bool IsPaid { get; set; }
 
-        public Employee()
+        public Employee(int EmployeeId, string fullName, bool PayStatus)
         {
-            Paid = false;
+            ID = EmployeeId;
+            FullName = fullName;
+            Salary = 0;
+            IsPaid = PayStatus;
         }
 
-        public abstract void EmployeeStatus();       
+        public abstract void EmployeeStatus();
 
-        public void PayStatus()
+        public virtual string PayStatus()
         {
-            if (Paid == true)
+            if (IsPaid)
             {
-                Console.WriteLine("Paid");
+                return $"Paid";
             }
-            else Console.WriteLine("Not Paid");
+            else
+            {
+
+                return $"Not Paid";
+            }
         }
 
-        public abstract void PayEmployee();
+        public virtual void PaySalary()
+            {
+                if (IsPaid)
+                {
+                    IsPaid = false;
+                    Console.WriteLine();
+                    Console.WriteLine($"{FullName} has just been paid their salary");
+                    Console.WriteLine();
+
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"{FullName} error, this employee has already been paid their salary");
+                    Console.WriteLine();
+                }
+            }
+        }
     }
-}
